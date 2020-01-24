@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VideoChat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Room Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qaN-hO-MSi">
+                                <rect key="frame" x="100" y="111" width="214" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0WD-ad-dIt">
+                                <rect key="frame" x="192" y="171" width="30" height="30"/>
+                                <state key="normal" title="Join"/>
+                                <connections>
+                                    <action selector="join:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fgA-MI-IqJ"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAh-oR-UP6">
+                                <rect key="frame" x="0.0" y="232" width="414" height="584"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CS5-8f-dFt" customClass="RTCEAGLVideoView">
+                                        <rect key="frame" x="0.0" y="0.0" width="207" height="584"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ed-c0-yvs" customClass="RTCEAGLVideoView">
+                                        <rect key="frame" x="207" y="0.0" width="207" height="584"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="CS5-8f-dFt" firstAttribute="width" secondItem="BAh-oR-UP6" secondAttribute="width" multiplier="0.5" id="S3X-cu-4eQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="9ed-c0-yvs" secondAttribute="trailing" id="VFY-SC-nqZ"/>
+                                    <constraint firstItem="CS5-8f-dFt" firstAttribute="leading" secondItem="BAh-oR-UP6" secondAttribute="leading" id="qp8-u7-Qjc"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BAh-oR-UP6" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="9Je-gG-veQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="BAh-oR-UP6" secondAttribute="bottom" constant="46" id="9fv-Rw-RkG"/>
+                            <constraint firstItem="0WD-ad-dIt" firstAttribute="top" secondItem="qaN-hO-MSi" secondAttribute="bottom" constant="26" id="H7o-lq-1T7"/>
+                            <constraint firstItem="qaN-hO-MSi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="Is0-eP-urm"/>
+                            <constraint firstItem="qaN-hO-MSi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="67" id="OMI-Qp-JcJ"/>
+                            <constraint firstItem="qaN-hO-MSi" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="QMU-0V-9ZH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="BAh-oR-UP6" secondAttribute="trailing" id="TFB-EV-wk3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="qaN-hO-MSi" secondAttribute="trailing" constant="100" id="WvU-6E-FAG"/>
+                            <constraint firstItem="BAh-oR-UP6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dXT-Ep-6GG"/>
+                            <constraint firstItem="0WD-ad-dIt" firstAttribute="centerX" secondItem="qaN-hO-MSi" secondAttribute="centerX" id="fxR-j5-9UZ"/>
+                            <constraint firstItem="BAh-oR-UP6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="188" id="npJ-di-Yhx"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="joinButton" destination="0WD-ad-dIt" id="K8N-4f-Ftf"/>
+                        <outlet property="localView" destination="CS5-8f-dFt" id="m16-SO-GEz"/>
+                        <outlet property="remoteView" destination="9ed-c0-yvs" id="QGQ-NE-mZz"/>
+                        <outlet property="roomText" destination="qaN-hO-MSi" id="fip-nl-k6Z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
+        </scene>
+    </scenes>
+</document>
