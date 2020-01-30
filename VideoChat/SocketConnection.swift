@@ -12,7 +12,7 @@ import WebRTC
 
 class SocketConnection: NSObject, WebSocketDelegate {
     
-    var socket: WebSocket = WebSocket(request: URLRequest(url: URL(string: "wss://2aa21e6d.ngrok.io")!))
+    var socket: WebSocket = WebSocket(request: URLRequest(url: URL(string: "wss://77485217.ngrok.io")!))
     var webRTCClient: WebRTCClient!
     var isConnected: Bool = false
     var onConnect: (()->Void)!

@@ -26,8 +26,10 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate {
     var remoteVideoSource: RTCVideoSource!
     
     var roomID: String!
+    var participantID: Int!
     var peerConnectionFactory: RTCPeerConnectionFactory = RTCPeerConnectionFactory()
     var peerConnection: RTCPeerConnection!
+    var peerConnections: [Int : RTCPeerConnection]!
     
     init(remoteView: inout RTCEAGLVideoView, localView: inout RTCEAGLVideoView) {
         super.init()
@@ -48,6 +50,7 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate {
     }
     
     func success(payload: [String: Any]){
+        self.participantID = payload["participantID"] as? Int ?? 0
         peerConnection = peerConnectionFactory.peerConnection(with: config(iceServers: ((payload["iceServers"] as! [String: Any])["iceServers"]) as! [[String : Any]]), constraints: mediaConstrains(), delegate: self)
         localStream = peerConnectionFactory.mediaStream(withStreamId: "local")
         let audioTrack = peerConnectionFactory.audioTrack(withTrackId: "localAudio")
@@ -135,13 +138,18 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didChange stateChanged: RTCSignalingState) {
-        print("change state", stateChanged)
+        print("change state closed", stateChanged == .closed)
+        print("change state haveLocalOffer", stateChanged == .haveLocalOffer)
+        print("change state haveLocalPrAnswer", stateChanged == .haveLocalPrAnswer)
+        print("change state haveRemoteOffer", stateChanged == .haveRemoteOffer)
+        print("change state haveRemotePrAnswer", stateChanged == .haveRemotePrAnswer)
+        print("change state stable", stateChanged == .stable)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didAdd stream: RTCMediaStream) {
         remoteStream = stream
-        remoteStream.addAudioTrack(remoteStream.audioTracks[0])
-        remoteStream.addVideoTrack(remoteStream.videoTracks[0])
+//        remoteStream.addAudioTrack(remoteStream.audioTracks[0])
+//        remoteStream.addVideoTrack(remoteStream.videoTracks[0])
         remoteStream.videoTracks[0].add(remoteView)
         
     }
@@ -159,7 +167,11 @@ class WebRTCClient: NSObject, RTCPeerConnectionDelegate {
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didGenerate candidate: RTCIceCandidate) {
-        print("new iceCandidate", candidate)
+        let payload = SocketConnection.toJsonString(data: ["event": "candidate", "payload":[
+            "candidate": ["candidate": candidate.sdp, "sdpMid": candidate.sdpMid ?? "", "sdpMLineIndex": candidate.sdpMLineIndex],
+            "roomID": self.roomID ?? ""
+        ]])
+        self.socket.send(data: payload, completion: nil)
     }
     
     func peerConnection(_ peerConnection: RTCPeerConnection, didRemove candidates: [RTCIceCandidate]) {
